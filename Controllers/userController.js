@@ -1,23 +1,33 @@
-// controllers/userController.js
-const pool = require('../database'); // Import the pool object
+const { getAllUsers, getOneUser, createUser } = require("../queries/userQueries");
 
-const getAllUsers = async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM users'); // Query the users table
-    res.status(200).json(result.rows); // Return the results in JSON format
-  } catch (err) {
-    console.error('Error fetching users:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+const getUsersController = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        res.status(200).json(users);
+    } catch (err) {
+        console.error("Error fetching users:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
 };
 
-const getOneUser = async (id) => {
-  try {
-      const oneUser = await db.one("SELECT * FROM users WHERE id=$1", id)
-      return oneUser
-  } catch (error) {
-      return error
-  }
-}
+const getUserController = async (req, res) => {
+    try {
+        const user = await getOneUser(req.params.id);
+        res.status(200).json(user);
+    } catch (err) {
+        console.error("Error fetching user:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
 
-module.exports = { getAllUsers, getOneUser };
+const createUserController = async (req, res) => {
+    try {
+        const newUser = await createUser(req.body);
+        res.status(201).json(newUser);
+    } catch (err) {
+        console.error("Error creating user:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+module.exports = { getUsersController, getUserController, createUserController };
