@@ -33,20 +33,27 @@ const {
   };
   
   // CREATE a new cover letter
+  const { generateCoverLetter } = require("../Models/coverLetterModel"); // import your AI generation model
+
   const createCoverLetterController = async (req, res) => {
     try {
-      const { user_id, content } = req.body;
-      if (!user_id || !content) {
-        return res.status(400).json({ error: "User ID and content are required" });
-      }
-  
-      const newCoverLetter = await createCoverLetter(user_id, content);
-      res.status(201).json(newCoverLetter);
+        console.log("Request Body:", req.body);  // <-- Add this line
+
+        const { user_id, job_id, job_title, company, content } = req.body;
+
+        if (!user_id || !job_id || !job_title || !company || !content) {
+            return res.status(400).json({ error: "User ID, Job ID, Job Title, and company are required!" });
+        }
+
+        const newCoverLetter = await createCoverLetter(user_id, job_id, job_title, company, content);
+        res.status(201).json(newCoverLetter);
     } catch (err) {
-      console.error("Error creating cover letter:", err);
-      res.status(500).json({ error: "Internal server error" });
+        console.error("Error creating cover letter:", err);
+        res.status(500).json({ error: "Internal server error" });
     }
-  };
+};
+
+
   
   // UPDATE a cover letter
   const updateCoverLetterController = async (req, res) => {

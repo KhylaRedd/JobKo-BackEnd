@@ -23,7 +23,7 @@ app.use('/coverletters',coverLetterRoute )
 
 // Test route to check if the database is connected
 app.get('/', (req, res) => {
-  res.send('Hello, Welcome to JobKo!');
+  res.send('Hello Friend, Welcome to JobKo!');
 });
 
 // A simple route to query the database and return all users (example)

@@ -45,7 +45,7 @@ CREATE TABLE jobs (
 CREATE TABLE cover_letters (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    job_id INTEGER REFERENCES jobs(id) ON DELETE SET NULL,
+    job_id INTEGER REFERENCES jobs(id) NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     is_favorite BOOLEAN DEFAULT FALSE
