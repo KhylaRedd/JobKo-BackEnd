@@ -3,7 +3,7 @@ CREATE DATABASE jobko;
 
 \c jobko;
 
--- Drop the tables with CASCADE
+-- Drop the tables with CASCADE.
 
 -- DROP TABLE IF EXISTS cover_letters CASCADE;
 -- DROP TABLE IF EXISTS resumes CASCADE;
